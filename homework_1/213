@@ -1,0 +1,59 @@
+--Новые таблички
+
+CREATE TABLE Vaccination(
+	Vaccination_ID			INTEGER		NOT NULL,
+	Vaccination_Data		DATE		NOT NULL,
+	Vaccination_Doc			VARCHAR(50) NOT NULL,
+	Pet_ID					INTEGER		NOT NULL,
+	Vaccination_Kind_ID		INTEGER		NOT NULL,
+	CONSTRAINT Vaccination_PK PRIMARY KEY (Vaccination_ID)
+);
+
+CREATE TABLE Vaccination_Kind(
+	Vaccination_Kind_ID		INTEGER		NOT NULL,
+	Vaccination_Name		VARCHAR(25) NOT NULL,
+	CONSTRAINT Vaccination_Kind_PK PRIMARY KEY (Vaccination_Kind_ID)
+);
+
+--Связываем
+
+ALTER TABLE Vaccination ADD CONSTRAINT FK_Pet_Vaccination
+	FOREIGN KEY (Pet_ID) REFERENCES Pet(Pet_ID);
+
+ALTER TABLE Vaccination	 ADD CONSTRAINT FK_Kind_Vaccination
+	FOREIGN KEY (Vaccination_Kind_ID) REFERENCES Vaccination_Kind(Vaccination_Kind_ID);
+
+--Заполнение
+
+INSERT INTO Vaccination_Kind(Vaccination_Kind_ID, Vaccination_Name) VALUES (1, 'Sadness');
+
+INSERT INTO Vaccination_Kind(Vaccination_Kind_ID, Vaccination_Name) VALUES (2, 'Tears');
+
+INSERT INTO Vaccination_Kind(Vaccination_Kind_ID, Vaccination_Name) VALUES (3, 'Laziness');
+
+
+INSERT INTO Vaccination(Vaccination_ID, Vaccination_Data, Vaccination_Doc, Pet_ID, Vaccination_Kind_ID)
+	VALUES (1, '2025-01-01'::date, 'This text confirms the presence of vaccination', 1, 1);
+
+INSERT INTO Vaccination(Vaccination_ID, Vaccination_Data, Vaccination_Doc, Pet_ID, Vaccination_Kind_ID)
+	VALUES (2, '2025-01-02'::date, 'This text confirms the presence of vaccination', 2, 2);
+
+INSERT INTO Vaccination(Vaccination_ID, Vaccination_Data, Vaccination_Doc, Pet_ID, Vaccination_Kind_ID)
+	VALUES (3, '2025-01-03'::date, 'This text confirms the presence of vaccination', 4, 1);
+
+INSERT INTO Vaccination(Vaccination_ID, Vaccination_Data, Vaccination_Doc, Pet_ID, Vaccination_Kind_ID)
+	VALUES (4, '2025-01-04'::date, 'This text confirms the presence of vaccination', 2, 3);
+
+-- Удаление
+
+-- DROP TABLE Vaccination;
+-- DROP TABLE Vaccination_Kind;
+-- DROP TABLE Order1;
+-- DROP TABLE Employee_Service;
+-- DROP TABLE Service;
+-- DROP TABLE Pet;
+-- DROP TABLE Pet_Type;
+-- DROP TABLE Employee;
+-- DROP TABLE Owner;
+-- DROP TABLE Person;
+

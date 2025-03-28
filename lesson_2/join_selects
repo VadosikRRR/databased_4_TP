@@ -1,0 +1,59 @@
+--1
+SELECT Nick, Name
+FROM pet, pet_type
+WHERE pet.pet_type_id = pet_type.pet_type_id
+AND Nick = 'Partizan';
+
+SELECT Nick, Name
+FROM pet JOIN pet_type ON pet.pet_type_id = pet_type.pet_type_id
+WHERE Nick = 'Partizan';
+
+--2
+SELECT Name, Nick, Breed, Age
+FROM pet JOIN pet_type ON pet.pet_type_id = pet_type.pet_type_id
+WHERE NAME = 'DOG';
+
+--3
+SELECT AVG(Age)
+FROM pet JOIN pet_type ON pet.pet_type_id = pet_type.pet_type_id
+WHERE Name = 'CAT';
+
+--4
+SELECT time_order, last_name
+FROM person JOIN employee on person.person_id = employee.person_id
+			JOIN order1 on employee.employee_id = order1.employee_id
+WHERE is_done = 0;
+
+--5
+SELECT first_name, last_name, phone
+FROM person JOIN owner ON person.person_id = owner.person_id
+JOIN pet ON pet.owner_id = owner.owner_id
+JOIN pet_type on pet.pet_type_id = pet_type.pet_type_id
+WHERE pet_type.name = 'DOG';
+
+--6
+SELECT pet_type.name, pet.nick
+FROM pet RIGHT JOIN pet_type on pet.pet_type_id = pet_type.pet_type_id;
+
+--7
+SELECT pet.age, pet_type.name, COUNT(*)
+FROM pet_type JOIN pet ON pet_type.pet_type_id = pet.pet_type_id
+GROUP BY pet.age, pet_type.name
+ORDER BY pet.age;
+
+--8
+SELECT person.last_name, COUNT(*)
+FROM person JOIN employee ON person.person_id = employee.person_id
+JOIN order1 ON employee.employee_id = order1.employee_id
+WHERE order1.is_done = 1
+GROUP BY person.last_name
+HAVING COUNT(*) > 3;
+
+--9
+--Вывести фамилии и клички питомцев, у которых есть прививка от грусти
+SELECT person.last_name, pet.nick, vaccination_kind.vaccination_name
+FROM person JOIN owner ON person.person_id = owner.person_id
+JOIN pet ON owner.owner_id = pet.owner_id
+JOIN vaccination ON pet.pet_id = vaccination.pet_id
+JOIN vaccination_kind ON vaccination.vaccination_kind_id = vaccination_kind.vaccination_kind_id
+WHERE vaccination_kind.vaccination_name = 'Sadness'

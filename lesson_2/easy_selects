@@ -1,0 +1,49 @@
+--1
+SELECT * FROM Pet
+WHERE Nick = 'Partizan';
+
+--2
+SELECT Nick, Breed, Age
+FROM Pet
+ORDER BY Age;
+
+--3
+SELECT * 
+FROM Pet
+WHERE Description IS NOT NULL AND Description <> '';
+
+--4
+SELECT AVG(Age)
+FROM Pet
+WHERE Breed = 'poodle';
+
+--5
+SELECT COUNT(DISTINCT Owner_ID)
+FROM Pet;
+
+--6
+SELECT Breed, COUNT(*) 
+FROM Pet
+GROUP BY Breed;
+
+--7
+SELECT Breed, COUNT(*)
+FROM Pet
+WHERE Breed IS NOT NULL
+GROUP BY Breed
+HAVING COUNT(*) > 1;
+
+--8
+SELECT Nick, Age
+FROM pet
+WHERE Age BETWEEN 5 and 10;
+
+--9
+SELECT Nick, Breed
+FROM pet
+WHERE Breed like 'S%';
+
+--10
+SELECT *
+FROM pet
+WHERE Owner_ID IN (1, 3, 5);
